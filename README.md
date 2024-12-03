@@ -31,7 +31,7 @@ Your game will be played round by round. You will write a function that takes th
 1. Create a new function named `playRound`.
 2. Define two parameters for `playRound`: `humanChoice` and `computerChoice`. Use these two parameters to take the human and computer choices as arguments.
 3. Make your function's `humanChoice` parameter case-insensitive so that the players can input "rock", "ROCK", "RocK, or other variations.
-4. Write the code for your `playRound` function to console.log a string value representing the round winnder, such as: "You lose! Paper beats Rock".
+4. Write the code for your `playRound` function to console.log a string value representing the round winner, such as: "You lose! Paper beats Rock".
 5. Increment the `humanScore` or `computerScore` variable based on the round winner.
 
 ## Step 6: Write the logic to play the entire game

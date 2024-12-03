@@ -33,8 +33,38 @@ function getHumanChoice(){
     let choiceRegex = /rock|paper|scissors/;
 
     if (choiceRegex.test(getUserInput.toLowerCase())){
-        return choiceRegex.test(getUserInput.toLowerCase())
+        return getUserInput.toLowerCase();
     } else {
         getHumanChoice();
     }
 }
+
+//MAKE a function called 'playRound'
+    //DEFINE the parameters as 'humanChoice' and 'computerChoice'
+    //WRITE a message for the player win
+        //WINNING CONDITIONS:
+        //IF player has Rock, it beats Scissors
+        //IF player has Scissors, it beats Paper
+        //IF player has Paper, it beats Rock
+        //INCREMENT the player score each time
+    //WRITE a message for the player loss
+        //Losing conditions are the same as winning conditions but reversed roles
+        //INCREMENT the computer score each time
+    //IF there is no winner, PRINT a message for a tie
+
+function playRound(humanChoice, computerChoice){
+    let winMessage = `You win! ${humanChoice[0].toUpperCase() + humanChoice.slice(1)} beats ${computerChoice}!`;
+    let loseMessage = `You lose! ${computerChoice[0].toUpperCase() + computerChoice.slice(1)} beats ${humanChoice}!`;
+
+    if ((humanChoice == 'rock' && computerChoice == 'scissors') || (humanChoice == 'scissors' && computerChoice == 'paper') || (humanChoice == 'paper' && computerChoice == 'rock')){
+        computerScore++;
+        return winMessage;
+    } else if ((computerChoice == 'rock' && humanChoice == 'scissors') || (computerChoice == 'scissors' && humanChoice == 'paper') || (computerChoice == 'paper' && humanChoice == 'rock')){
+        computerScore++;
+        return loseMessage;
+    } else {
+        return `It's a tie! You both chose ${humanChoice}.`
+    }
+}
+
+console.log(playRound(getHumanChoice(), getComputerChoice()))
