@@ -26,5 +26,15 @@ function getComputerChoice(){
 //CALL the function within console.log
 
 function getHumanChoice(){
-    let getUserInput = prompt()
+    let getUserInput = prompt('Please enter "rock", "paper", or "scissors".');
+    let choiceRegex = /rock|paper|scissors/;
+
+    if (choiceRegex.test(getUserInput.toLowerCase())){
+        return choiceRegex.test(getUserInput.toLowerCase())
+    } else {
+        getHumanChoice();
+    }
+
 }
+
+console.log(getHumanChoice())
