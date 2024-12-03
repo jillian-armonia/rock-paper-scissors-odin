@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 //MAKE a function called 'getComputerChoice'
     //CREATE a variable called 'randomNumber'
     //GENERATE a random number from Math.random and multiply it to 3
@@ -34,7 +37,4 @@ function getHumanChoice(){
     } else {
         getHumanChoice();
     }
-
 }
-
-console.log(getHumanChoice())
