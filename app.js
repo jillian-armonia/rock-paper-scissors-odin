@@ -1,53 +1,77 @@
+const choices = ["rock", "paper", "scissors"];
+let div = document.createElement("div");
+let results = document.createElement("div");
+let score = document.createElement("p");
+let humanScore = 0;
+let computerScore = 0;
+let roundCounter = 0;
+
+document.body.appendChild(div);
+document.body.appendChild(results);
+results.appendChild(score);
+setScore();
+
+function setScore(){
+    score.textContent = `Your score: ${humanScore} Computer score: ${computerScore}`
+}
+
+
+
 function getComputerChoice(){
     let randomNumber = Math.floor(Math.random() * 3);
-    if (randomNumber == 0) return 'rock';
-    if (randomNumber == 1) return 'paper';
-    if (randomNumber == 2) return 'scissors';
+    return choices[randomNumber];
 }
 
-function getHumanChoice(){
-    let getUserInput = prompt('Please enter "rock", "paper", or "scissors".');
-    let choiceRegex = /rock|paper|scissors/;
+function playGame(humanChoice, computerChoice){
+    let p = document.createElement("p");
 
-    if (choiceRegex.test(getUserInput.toLowerCase())){
-        return getUserInput.toLowerCase();
-    } else {
-        getHumanChoice();
-    }
-}
-
-function playGame(){
-    let humanScore = 0;
-    let computerScore = 0;
-    let roundCounter = 0;
-
-    function playRound(humanChoice, computerChoice){
+    function playRound(){
         let winMessage = `You win! ${humanChoice[0].toUpperCase() + humanChoice.slice(1)} beats ${computerChoice}!`;
         let loseMessage = `You lose! ${computerChoice[0].toUpperCase() + computerChoice.slice(1)} beats ${humanChoice}!`;
 
         if ((humanChoice == 'rock' && computerChoice == 'scissors') || (humanChoice == 'scissors' && computerChoice == 'paper') || (humanChoice == 'paper' && computerChoice == 'rock')){
             ++humanScore;
-            return winMessage + `\nYour score: ${humanScore} Computer score: ${computerScore}`;
+            setScore();
+            return winMessage;
         } else if ((computerChoice == 'rock' && humanChoice == 'scissors') || (computerChoice == 'scissors' && humanChoice == 'paper') || (computerChoice == 'paper' && humanChoice == 'rock')){
             ++computerScore;
-            return loseMessage + `\nYour score: ${humanScore} Computer score: ${computerScore}`;
+            setScore();
+            return loseMessage;
         } else {
             return `It's a tie! You both chose ${humanChoice}.`
         }
     }
 
-    while (roundCounter < 5){
-        console.log(playRound(getHumanChoice(), getComputerChoice()));
-        roundCounter++;
+    roundCounter++;
+    p.textContent = `Round ${roundCounter}: ${playRound()}`;
+    results.appendChild(p);
+
+    if (roundCounter == 5){
+        let message = document.createElement("p");
+        if (humanScore > computerScore){
+            message.textContent = 'You won the game!';
+            results.appendChild(message);
+        } else if (computerScore > humanScore){
+            message.textContent = 'You lost the game!';
+            results.appendChild(message);
+        } else {
+            message.textContent =  'It was a tie!';
+            results.appendChild(message);
+        }
+        let buttons = document.querySelectorAll("button");
+        buttons.forEach(btn => {
+            btn.disabled = true;
+        })
     }
 
-    if (humanScore > computerScore){
-        return 'You won the game!'
-    } else if (computerScore > humanScore){
-        return 'You lost the game!'
-    } else {
-        return 'It was a tie!'
-    }
 }
 
-console.log(playGame())
+choices.forEach(choice => {
+    let btn = document.createElement("button");
+    btn.id = choice;
+    btn.textContent = choice;
+    btn.addEventListener("click", () => {
+        playGame(btn.id, getComputerChoice());
+    })
+    div.appendChild(btn);
+})
